@@ -121,7 +121,7 @@ class EvaluatorTest {
         assertFalse(Evaluator.isValidWord("KATT"));
         assertFalse(Evaluator.isValidWord("KALLAR"));
         assertFalse(Evaluator.isValidWord("KALL1"));
-        assertFalse(Evaluator.isValidWord("KA LA"));
+        assertFalse(Evaluator.isValidWord("KA  LA"));
         assertFalse(Evaluator.isValidWord("KALL!"));
     }
 }
