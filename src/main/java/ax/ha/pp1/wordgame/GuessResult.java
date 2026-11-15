@@ -1,5 +1,7 @@
 package ax.ha.pp1.wordgame;
 
+import java.util.Locale;
+
 /**
  * Resultatet av en gissning: gissningens bokstäver och en markering per bokstav.
  * Klassen ska vara oföränderlig.
@@ -12,47 +14,70 @@ public final class GuessResult {
     public static final int MISPLACED = 1;  // finns, men på en annan plats
     public static final int CORRECT = 2;    // rätt bokstav på rätt plats
 
-    /**
-     * Skapar ett resultat. Kastar IllegalArgumentException om längderna skiljer sig
-     * eller om en markering är ogiltig.
-     */
+    private final String guess;
+    private final int[] marks;
+
     public GuessResult(String guess, int[] marks) {
-        // TODO del B
+        if (guess == null || marks == null || guess.length() != marks.length) {
+            throw new IllegalArgumentException("Gissning och markering måste ha samma längd");
+        }
+        this.guess = guess.toUpperCase(Locale.ROOT);
+        this.marks = marks.clone();
+
+        for (int mark : this.marks) {
+            if (mark != ABSENT && mark != MISPLACED && mark != CORRECT) {
+                throw new IllegalArgumentException("Ogiltig markering: " + mark);
+            }
+        }
     }
 
     /** Gissningen med versaler, t.ex. "ALLAS". */
     public String getGuess() {
-        throw new UnsupportedOperationException("Inte implementerad än");
+        return guess;
     }
 
     /** Antal bokstäver. */
     public int length() {
-        throw new UnsupportedOperationException("Inte implementerad än");
+        return guess.length();
     }
 
     /** Bokstaven på plats index (0–4). */
     public char letterAt(int index) {
-        throw new UnsupportedOperationException("Inte implementerad än");
+        return guess.charAt(index);
     }
 
     /** Markeringen på plats index: ABSENT, MISPLACED eller CORRECT. */
     public int markAt(int index) {
-        throw new UnsupportedOperationException("Inte implementerad än");
+        return marks[index];
     }
 
     /** Alla markeringar, t.ex. {1, 1, 2, 1, 0}. */
     public int[] getMarks() {
-        throw new UnsupportedOperationException("Inte implementerad än");
+        return marks.clone();
     }
 
     /** Sant om alla bokstäver är CORRECT. */
     public boolean isCorrect() {
-        throw new UnsupportedOperationException("Inte implementerad än");
+        for (int mark : marks) {
+            if (mark != CORRECT) {
+                return false;
+            }
+        }
+        return true;
     }
 
     /** Till exempel (A)(L)[L](A)-S- för gissningen ALLAS mot svaret KALLA. */
     @Override
     public String toString() {
-        throw new UnsupportedOperationException("Inte implementerad än");
+        StringBuilder sb = new StringBuilder(guess.length() * 3);
+        for (int i= 0; i < guess.length(); i++) {
+            char letter = guess.charAt(i);
+            switch (marks[i]) {
+                case CORRECT -> sb.append('[').append(letter).append(']');
+                case MISPLACED -> sb.append('(').append(letter).append(')');
+                case ABSENT -> sb.append('-').append(letter).append('-');
+            }
+        }
+        return sb.toString();
     }
 }
