@@ -3,7 +3,6 @@ package ax.ha.pp1.wordgame;
 /**
  * En spelomgång: ett hemligt ord och högst sex gissningar.
  * Klassen vet ingenting om dialogrutor.
- *
  * Kodskelettet kompilerar men är inte implementerat, och det har inga fält:
  * vilka fält klassen behöver bestämmer du själv i del B. Signaturerna får inte ändras.
  */
