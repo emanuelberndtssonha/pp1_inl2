@@ -10,9 +10,17 @@ package ax.ha.pp1.wordgame;
 public class Game {
     public static final int MAX_GUESSES = 6;
 
+    private final String answer;
+    private final GuessResult[] guesses;
+    private int guessCount;
     /** Startar en omgång. Svaret hämtas med source.next(). */
     public Game(WordSource source) {
-        // TODO del B
+        if (source == null) {
+            throw new IllegalArgumentException("wordsource får inte vara null");
+        }
+        this.answer = source.next();
+        this.guesses = new GuessResult[MAX_GUESSES];
+        this.guessCount = 0;
     }
 
     /**
@@ -21,27 +29,33 @@ public class Game {
      * spelet redan är slut.
      */
     public GuessResult guess(String word) {
-        throw new UnsupportedOperationException("Inte implementerad än");
+        if (isOver()) {
+            throw new IllegalStateException("Spelet är redan slut");
+        }
+        GuessResult result = Evaluator.evaluate(word, answer);
+        guesses[guessCount] = result;
+        guessCount++;
+        return result;
     }
 
     /** Sant om senaste gissningen var rätt. */
     public boolean isWon() {
-        throw new UnsupportedOperationException("Inte implementerad än");
+        return guessCount > 0 && guesses[guessCount -1].isCorrect();
     }
 
     /** Sant om spelet är slut: vunnet eller sex gissningar gjorda. */
     public boolean isOver() {
-        throw new UnsupportedOperationException("Inte implementerad än");
+        return isWon() || guessCount >= MAX_GUESSES;
     }
 
     /** Antal gjorda gissningar. */
     public int getGuessCount() {
-        throw new UnsupportedOperationException("Inte implementerad än");
+        return  guessCount;
     }
 
     /** Antal gissningar kvar. */
     public int getGuessesLeft() {
-        throw new UnsupportedOperationException("Inte implementerad än");
+        return MAX_GUESSES - guessCount;
     }
 
     /**
@@ -49,12 +63,19 @@ public class Game {
      * inte kan avslöjas för tidigt.
      */
     public String getAnswer() {
-        throw new UnsupportedOperationException("Inte implementerad än");
+        if (!isOver()) {
+            throw new IllegalStateException("Svaret får inte hämtas innan spelet är över");
+        }
+        return answer;
     }
 
     /** Spelbrädet: en rad per gissning i formen från GuessResult, med radbrytning efter varje rad. */
     @Override
     public String toString() {
-        throw new UnsupportedOperationException("Inte implementerad än");
+        StringBuilder sb = new StringBuilder();
+        for (int i = 0; i < guessCount; i++) {
+            sb.append(guesses[i]).append('\n');
+        }
+        return sb.toString();
     }
 }
