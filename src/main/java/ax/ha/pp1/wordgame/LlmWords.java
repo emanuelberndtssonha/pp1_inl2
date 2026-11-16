@@ -6,7 +6,6 @@ import java.util.Locale;
 
 /**
  * Hämtar ord till spelet från skolans språkmodell (del D).
- *
  * Kodskelettet kompilerar men är inte implementerat. Signaturerna får inte ändras.
  */
 public class LlmWords {

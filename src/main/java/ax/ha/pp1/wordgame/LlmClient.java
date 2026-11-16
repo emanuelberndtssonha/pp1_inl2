@@ -10,12 +10,10 @@ import java.time.Duration;
 /**
  * En liten klient för skolans språkmodell (OpenAI-kompatibelt API via Open WebUI).
  * Klassen är färdig och behöver inte ändras. Den används i del D.
- *
  * Inställningarna läses från miljövariabler, så att ingen nyckel hamnar i git:
  *   PP1_LLM_URL    hela adressen, t.ex. https://.../api/chat/completions
  *   PP1_LLM_MODEL  modellens namn
  *   PP1_LLM_KEY    API-nyckeln från Open WebUI (kan utelämnas om servern inte kräver nyckel)
- *
  * Alla fel ger IllegalStateException med ett meddelande som går att visa för användaren.
  */
 public class LlmClient {

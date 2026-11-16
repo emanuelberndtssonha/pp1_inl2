@@ -5,7 +5,6 @@ import java.util.Locale;
 /**
  * Resultatet av en gissning: gissningens bokstäver och en markering per bokstav.
  * Klassen ska vara oföränderlig.
- *
  * Kodskelettet kompilerar men är inte implementerat. Skriv testerna i del A först,
  * och implementera sedan klassen i del B. Signaturerna får inte ändras.
  */

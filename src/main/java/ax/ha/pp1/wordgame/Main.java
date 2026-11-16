@@ -12,7 +12,7 @@ public class Main {
 
     void main() {
         String[] words = loadWords();
-        Game game = new Game(new WordSource(WordList.all()));
+        Game game = new Game(new WordSource(words));
 
         while (!game.isOver()) {
             int currentGuess = game.getGuessCount() + 1;
